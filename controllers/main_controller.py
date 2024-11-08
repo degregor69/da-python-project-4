@@ -20,16 +20,15 @@ class MainController:
 
             if choice == '1':
                 self.player_controller.add_player()
-                break
             # elif choice == '2':
             #     create_tournament()
             # elif choice == '3':
             #     start_round()
             # elif choice == '4':
             #     show_reports()
-            # elif choice == '5':
-            #     print("Au revoir !")
-            #     break
+            elif choice == '5':
+                print("Au revoir !")
+                break
             else:
                 print("Option invalide. Veuillez réessayer.")
 
