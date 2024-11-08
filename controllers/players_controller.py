@@ -24,8 +24,6 @@ class PlayerController:
             print("Erreur : l'id national n'est pas au bon format.")
             return
 
-
-
         player_data = {
             'last_name': last_name,
             'first_name': first_name,
