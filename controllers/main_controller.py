@@ -1,10 +1,12 @@
 from controllers.players_controller import PlayerController
-from data.database import players_db
+from controllers.tournaments_controller import TournamentController
+from data.database import players_db, tournaments_db
 
 
 class MainController:
     def __init__(self):
-        self.player_controller = PlayerController(players_db)
+        self.player_controller = PlayerController()
+        self.tournament_controller = TournamentController(tournaments_db, players_db)
 
     def run(self):
         print("Bienvenue au gestionnaire de tournoi d'échecs !")
@@ -20,8 +22,8 @@ class MainController:
 
             if choice == '1':
                 self.player_controller.add_player()
-            # elif choice == '2':
-            #     create_tournament()
+            elif choice == '2':
+                self.tournament_controller.create_tournament()
             # elif choice == '3':
             #     start_round()
             # elif choice == '4':

@@ -1,38 +1,29 @@
 import datetime
 import re
+from views import players as players_views
+from models.players.players import Player
+from models.players.players_manager import PlayersManager
 
 
 class PlayerController:
-    def __init__(self, db):
-        self.db = db.table('players')
-        self.players = []  # Liste pour stocker les joueurs
+    def __init__(self):
+        self.players_manager = PlayersManager()
 
     def add_player(self):
-        print("Ajoutons un joueur !")
-        last_name = input("Nom de famille : ")
-        first_name = input("Prénom : ")
-        birth_date = input("Date de naissance (JJ/MM/AAAA) : ")
-        national_id = input("ID national : ")
+        new_player_dict = players_views.add_player()
+        new_player = Player(**new_player_dict)
 
-        # Validation de la date
-        if not self._validate_date(birth_date):
+        if not self._validate_date(new_player.birth_date):
             print("Erreur : La date de naissance n'est pas valide.")
             return
 
-        # Validation de l'id national
-        if not self._validate_national_id(national_id):
+        if not self._validate_national_id(new_player.national_id):
             print("Erreur : l'id national n'est pas au bon format.")
             return
 
-        player_data = {
-            'last_name': last_name,
-            'first_name': first_name,
-            'birth_date': birth_date,
-            'national_id': national_id,
-            'points': 0.0
-        }
-        self.db.insert(player_data)  # Insertion dans TinyDB
-        print(f"Le joueur {first_name} {last_name} a été ajouté avec succès !")
+        print(self.players_manager)
+        self.players_manager.add_player(new_player)
+        print(f"Le joueur {new_player.first_name} {new_player.last_name} a été ajouté avec succès !")
 
     @staticmethod
     def _validate_date(date_text):
