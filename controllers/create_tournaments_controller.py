@@ -3,7 +3,7 @@ from models.tournaments.tournaments import Tournament
 from views import tournaments as tournaments_views
 
 
-class TournamentController:
+class CreateTournamentController:
     def __init__(self):
         self.tournaments_manager = TournamentsManager()
 
