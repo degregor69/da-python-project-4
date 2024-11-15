@@ -4,6 +4,15 @@ from models.players.players import Player
 from models.tournaments.tournaments_manager import TournamentsManager
 
 
+def get_tournament(tournament_manager: TournamentsManager):
+    all_tournaments = tournament_manager.get_all_tournaments()
+    print("Choisissez le tournoi à lancer ou reprendre :")
+    for tournament in all_tournaments:
+        print(
+            f"{tournament.name} | {tournament.location} | {tournament.start_date} | {tournament.end_date} "
+        )
+
+
 def create_tournament():
     print("Création d'un tournoi")
     name = input("Nom du tournoi : ")

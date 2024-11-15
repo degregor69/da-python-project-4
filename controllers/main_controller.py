@@ -1,11 +1,13 @@
 from controllers.players_controller import PlayerController
 from controllers.create_tournaments_controller import CreateTournamentController
+from controllers.start_tournament_controller import StartTournamentController
 
 
 class MainController:
     def __init__(self):
         self.player_controller = PlayerController()
-        self.tournament_controller = CreateTournamentController()
+        self.create_tournament_controller = CreateTournamentController()
+        self.start_tournament_controller = StartTournamentController()
 
     def run(self):
         print("Bienvenue au gestionnaire de tournoi d'échecs !")
@@ -19,17 +21,16 @@ class MainController:
 
             choice = input("Choisissez une option : ")
 
-            if choice == '1':
+            if choice == "1":
                 self.player_controller.add_player()
-            elif choice == '2':
-                self.tournament_controller.create_tournament()
-            # elif choice == '3':
-            #     start_round()
+            elif choice == "2":
+                self.create_tournament_controller.create_tournament()
+            elif choice == "3":
+                self.start_tournament_controller.start_tournament()
             # elif choice == '4':
             #     show_reports()
-            elif choice == '5':
+            elif choice == "5":
                 print("Au revoir !")
                 break
             else:
                 print("Option invalide. Veuillez réessayer.")
-
