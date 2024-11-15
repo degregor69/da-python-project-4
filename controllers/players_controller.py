@@ -23,7 +23,9 @@ class PlayerController:
 
         print(self.players_manager)
         self.players_manager.add_player(new_player)
-        print(f"Le joueur {new_player.first_name} {new_player.last_name} a été ajouté avec succès !")
+        print(
+            f"Le joueur {new_player.first_name} {new_player.last_name} a été ajouté avec succès !"
+        )
 
     @staticmethod
     def _validate_date(date_text):
