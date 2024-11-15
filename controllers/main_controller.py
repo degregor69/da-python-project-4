@@ -1,11 +1,11 @@
-from controllers.players_controller import PlayerController
+from controllers.add_players_controller import AddPlayerController
 from controllers.create_tournaments_controller import CreateTournamentController
 from controllers.start_tournament_controller import StartTournamentController
 
 
 class MainController:
     def __init__(self):
-        self.player_controller = PlayerController()
+        self.player_controller = AddPlayerController()
         self.create_tournament_controller = CreateTournamentController()
         self.start_tournament_controller = StartTournamentController()
 
@@ -22,11 +22,11 @@ class MainController:
             choice = input("Choisissez une option : ")
 
             if choice == "1":
-                self.player_controller.add_player()
+                self.player_controller.run()
             elif choice == "2":
-                self.create_tournament_controller.create_tournament()
+                self.create_tournament_controller.run()
             elif choice == "3":
-                self.start_tournament_controller.start_tournament()
+                self.start_tournament_controller.run()
             # elif choice == '4':
             #     show_reports()
             elif choice == "5":
