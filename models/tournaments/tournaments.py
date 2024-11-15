@@ -1,9 +1,6 @@
 import datetime
 from typing import List
 
-from models.players.players import Player
-from models.rounds import Round
-
 
 class Tournament:
     def __init__(
@@ -13,8 +10,8 @@ class Tournament:
         start_date: datetime.date,
         end_date: datetime.date,
         description: str = "",
-        players: List[Player] = [],
-        rounds: List[Round] = [],
+        players_ids: List[int] = [],
+        rounds_ids: List[int] = [],
         actual_round: int = 0,
         nb_rounds: int = 4,
     ):
@@ -23,17 +20,7 @@ class Tournament:
         self.start_date = start_date
         self.end_date = end_date
         self.description = description
-        self.players = players
-        self.rounds = rounds
+        self.players_ids = players_ids
+        self.rounds_ids = rounds_ids
         self.actual_round = actual_round
         self.nb_rounds = nb_rounds
-
-    def get_players(self) -> List[Player]:
-        # Rassemble tous les joueurs uniques de chaque match dans tous les rounds
-        players_set = {
-            player
-            for round in self.rounds
-            for match in round.matches
-            for player in match.get_players()
-        }
-        return list(players_set)

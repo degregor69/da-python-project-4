@@ -9,7 +9,7 @@ class PlayerController:
     def __init__(self):
         self.players_manager = PlayersManager()
 
-    def add_player(self):
+    def run(self):
         new_player_dict = players_views.add_player()
         new_player = Player(**new_player_dict)
 
@@ -21,11 +21,9 @@ class PlayerController:
             print("Erreur : l'id national n'est pas au bon format.")
             return
 
-        print(self.players_manager)
         self.players_manager.add_player(new_player)
-        print(
-            f"Le joueur {new_player.first_name} {new_player.last_name} a été ajouté avec succès !"
-        )
+
+        players_views.added_player(new_player.first_name, new_player.last_name)
 
     @staticmethod
     def _validate_date(date_text):
