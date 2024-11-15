@@ -5,7 +5,7 @@ from models.players.players import Player
 from models.players.players_manager import PlayersManager
 
 
-class PlayerController:
+class AddPlayerController:
     def __init__(self):
         self.players_manager = PlayersManager()
 
