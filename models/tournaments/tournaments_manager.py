@@ -1,14 +1,22 @@
 from tinydb import TinyDB, Query
 from .tournaments import Tournament
+from ..players.players_manager import PlayersManager
 
 
 class TournamentsManager:
-    def __init__(self, db_path="data/players.json"):
+    def __init__(self, db_path="data/tournaments.json"):
         self.db = TinyDB(db_path).table("tournaments")
         self.db_players = TinyDB(db_path).table("players")
+        self.players_manager = PlayersManager()
 
     def add_tournament(self, tournament: Tournament):
-        self.db.insert(tournament.__dict__)
+        players_as_list_of_dict = [player.__dict__ for player in tournament.players]
+        tournament_as_dict = tournament.__dict__
+        tournament_as_dict["start_date"] = str(tournament_as_dict["start_date"])
+        tournament_as_dict["end_date"] = str(tournament_as_dict["end_date"])
+        tournament_as_dict["players"] = players_as_list_of_dict
+        self.db.insert(tournament_as_dict)
+        print("Tournoi sauvegardé avec succès")
 
     def get_tournament(self, tournament_id: int):
         TournamentQuery = Query()
@@ -17,10 +25,5 @@ class TournamentsManager:
             return "Tournament not found."
         return Tournament(**tournament_data)
 
-    def get_players(self):
-        # Récupérer la liste des joueurs dans la base de données
-        db_players = self.db_players.all()
-        for db_player in db_players:
-            print(
-                f"{db_player['national_id']} {db_player['first_name']} {db_player['last_name']}"
-            )
+    def get_all_players(self):
+        return self.players_manager.get_all_players()

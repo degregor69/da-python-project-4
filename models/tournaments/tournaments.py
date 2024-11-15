@@ -12,7 +12,8 @@ class Tournament:
         location: str,
         start_date: datetime.date,
         end_date: datetime.date,
-        description: str = '',
+        description: str = "",
+        players: List[Player] = [],
         rounds: List[Round] = [],
         actual_round: int = 0,
         nb_rounds: int = 4,
@@ -21,10 +22,11 @@ class Tournament:
         self.location = location
         self.start_date = start_date
         self.end_date = end_date
+        self.description = description
+        self.players = players
         self.rounds = rounds
         self.actual_round = actual_round
         self.nb_rounds = nb_rounds
-        self.description = description
 
     def get_players(self) -> List[Player]:
         # Rassemble tous les joueurs uniques de chaque match dans tous les rounds
