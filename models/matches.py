@@ -1,4 +1,4 @@
-from models.players import Player
+from models.players.players import Player
 
 
 class Match:

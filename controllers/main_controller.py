@@ -1,12 +1,11 @@
 from controllers.players_controller import PlayerController
 from controllers.tournaments_controller import TournamentController
-from data.database import players_db, tournaments_db
 
 
 class MainController:
     def __init__(self):
         self.player_controller = PlayerController()
-        self.tournament_controller = TournamentController(tournaments_db, players_db)
+        self.tournament_controller = TournamentController()
 
     def run(self):
         print("Bienvenue au gestionnaire de tournoi d'échecs !")
