@@ -80,5 +80,11 @@ class StartTournamentViews:
         print("Choisissez le tournoi à lancer ou reprendre :")
         for index, tournament in enumerate(all_tournaments):
             print(
-                f"{index} - {tournament.name} | {tournament.location} | {tournament.start_date} | {tournament.end_date}"
+                f"{index + 1} - {tournament.name} | {tournament.location} | {tournament.start_date} | {tournament.end_date}"
             )
+        choice = input("Entrez le numéro du tournoi : ")
+        if choice.isdigit() and 1 <= int(choice) <= len(all_tournaments):
+            return all_tournaments[int(choice) - 1]
+        else:
+            print("Choix invalide.")
+            return None

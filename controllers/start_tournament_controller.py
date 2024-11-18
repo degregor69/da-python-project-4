@@ -10,3 +10,13 @@ class StartTournamentController:
     def run(self):
         # Choose the tournamnent we want to start
         tournament = StartTournamentViews.select_tournament(self.tournaments_manager)
+        print(tournament.to_dict())
+
+        # TODO
+        # IF ACTUAL_ROUND == 0:
+        # RANDOMLY SORT THE PLAYER
+
+        # IF ACTUAL ROUND > 0
+        # SORT THE PLAYERS BY POINTS
+        # ATTRIBUTE FIRST PLAYER TO NEXT ONE EXCEPT IF ALREADY PLAYED AGAINST
+        # RUN THIS UNTIL ALL PLAYERS ATTRIBUTED
