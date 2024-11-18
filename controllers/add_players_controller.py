@@ -1,6 +1,6 @@
 import datetime
 import re
-from views import players as players_views
+from views.players import AddPlayerViews
 from models.players.players import Player
 from models.players.players_manager import PlayersManager
 
@@ -10,7 +10,7 @@ class AddPlayerController:
         self.players_manager = PlayersManager()
 
     def run(self):
-        new_player_dict = players_views.add_player()
+        new_player_dict = AddPlayerViews.get_player_data()
         new_player = Player(**new_player_dict)
 
         if not self._validate_date(new_player.birth_date):
@@ -23,7 +23,9 @@ class AddPlayerController:
 
         self.players_manager.add_player(new_player)
 
-        players_views.added_player(new_player.first_name, new_player.last_name)
+        AddPlayerViews.display_added_player_message(
+            new_player.first_name, new_player.last_name
+        )
 
     @staticmethod
     def _validate_date(date_text):
