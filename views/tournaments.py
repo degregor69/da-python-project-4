@@ -1,16 +1,16 @@
 import datetime
 
+import utils
 from models.players.players_manager import PlayersManager
 from models.tournaments.tournaments_manager import TournamentsManager
-from controllers.create_tournaments_controller import CreateTournamentController
 
 
-def get_tournament(tournament_manager: TournamentsManager):
+def select_tournament(tournament_manager: TournamentsManager):
     all_tournaments = tournament_manager.get_all_tournaments()
     print("Choisissez le tournoi à lancer ou reprendre :")
-    for tournament in all_tournaments:
+    for index, tournament in enumerate(all_tournaments):
         print(
-            f"{tournament.name} | {tournament.location} | {tournament.start_date} | {tournament.end_date} "
+            f"{index} - {tournament.name} | {tournament.location} | {tournament.start_date} | {tournament.end_date}"
         )
 
 
@@ -51,7 +51,7 @@ def ask_for_players(
         )
         if selection == "STOP":
             break
-        player = CreateTournamentController.check_if_player_already_registered(
+        player = utils.check_if_player_already_registered(
             registered_players, players_ids, selection
         )
         if player:
@@ -59,9 +59,7 @@ def ask_for_players(
 
     print("Joueurs inscrits au tournoi :")
     for registered_player in registered_players:
-        print(
-            f"{registered_player}"
-        )
+        print(f"{registered_player}")
     return registered_players
 
 
