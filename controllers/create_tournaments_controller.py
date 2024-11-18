@@ -1,7 +1,7 @@
 from models.players.players_manager import PlayersManager
 from models.tournaments.tournaments_manager import TournamentsManager
 from models.tournaments.tournaments import Tournament
-from views import tournaments as tournaments_views
+from views.tournaments import CreateTournamentViews
 
 
 class CreateTournamentController:
@@ -10,11 +10,11 @@ class CreateTournamentController:
         self.players_manager = PlayersManager()
 
     def run(self):
-        new_tournament_as_dict = tournaments_views.create_tournament()
+        new_tournament_as_dict = CreateTournamentViews.create_tournament()
         new_tournament = Tournament(**new_tournament_as_dict)
 
         # Sélection des joueurs
-        new_tournament.players_ids = tournaments_views.ask_for_players(
+        new_tournament.players_ids = CreateTournamentViews.ask_for_players(
             self.tournaments_manager, self.players_manager
         )
 
