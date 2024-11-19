@@ -1,7 +1,7 @@
 import datetime
 from typing import List
 
-from models.matches import Match
+from models.matches.matches import Match
 
 
 

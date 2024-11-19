@@ -1,22 +1,37 @@
+from models.players.players import Player
+
+from models.players.players_manager import PlayersManager
 from models.tournaments.tournaments_manager import TournamentsManager
-from models.tournaments.tournaments import Tournament
 from views.tournaments import StartTournamentViews
+import random
 
 
 class StartTournamentController:
     def __init__(self):
         self.tournaments_manager = TournamentsManager()
+        self.players_manager = PlayersManager()
 
     def run(self):
         # Choose the tournamnent we want to start
         tournament = StartTournamentViews.select_tournament(self.tournaments_manager)
-        print(tournament.to_dict())
+        print(f"Joueurs : {tournament.players_ids}")
 
-        # TODO
-        # IF ACTUAL_ROUND == 0:
-        # RANDOMLY SORT THE PLAYER
+        # Sorting players
+        if (
+            tournament.actual_round == 0
+        ):  # If beginning of tournament, randomly sort players
+            sorted_players = random.sample(
+                tournament.players_ids, len(tournament.players_ids)
+            )
+            print("Joueurs triés aléatoirement :")
+            print(sorted_players)
+        else:  # if tournament already begun, sort by points
+            # TODO points during the tournament, not all points by player
+            players: list[Player] = []
+            for player_id in tournament.players_ids:
+                players.append(self.players_manager.get_player(player_id))
+            sorted_players = sorted(
+                tournament.players_ids, key=lambda player: player.points
+            )
 
-        # IF ACTUAL ROUND > 0
-        # SORT THE PLAYERS BY POINTS
-        # ATTRIBUTE FIRST PLAYER TO NEXT ONE EXCEPT IF ALREADY PLAYED AGAINST
-        # RUN THIS UNTIL ALL PLAYERS ATTRIBUTED
+        # Generate pairs
