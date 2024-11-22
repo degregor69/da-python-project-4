@@ -22,7 +22,8 @@ class MainController:
             # elif choice == '4':
             #     show_reports()
             elif choice == "5":
-                print("Au revoir !")
+                MainControllerViews.goodbye()
                 break
             else:
-                print("Option invalide. Veuillez réessayer.")
+                MainControllerViews.error()
+
