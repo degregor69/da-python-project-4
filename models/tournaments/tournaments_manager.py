@@ -16,7 +16,7 @@ class TournamentsManager:
 
     def get_all_tournaments(self):
         tournaments_data = self.db.all()
-        return [Tournament(**tournaments_data) for tournaments_data in tournaments_data]
+        return [Tournament.from_dict(tournaments_data, self.players_manager)for tournaments_data in tournaments_data]
 
     def get_tournament(self, tournament_id: int = None):
         if tournament_id:
