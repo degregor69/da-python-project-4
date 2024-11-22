@@ -26,7 +26,7 @@ class StartTournamentController:
         StartTournamentViews.display_tournament_actual_round(
             tournament.actual_round)
         
-        if tournament.actual_round <= tournament.nb_rounds:
+        if tournament.actual_round <= tournament.nb_rounds and tournament.actual_round > 0:
             if tournament.actual_round == 1:
                 round = self.generate_first_round(tournament=tournament)
             else:
@@ -36,7 +36,10 @@ class StartTournamentController:
             self.set_match_score_controller.run(round)
 
             # Update the round of the tournament
-            tournament.actual_round += 1
+            if tournament.actual_round == tournament.nb_rounds:
+                tournament.actual_round = -1
+            else:
+                tournament.actual_round += 1
             tournament.rounds.append(round)
             self.tournaments_manager.update_tournament(tournament)
 

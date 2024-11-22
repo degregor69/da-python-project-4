@@ -81,8 +81,9 @@ class StartTournamentViews:
         all_tournaments = tournament_manager.get_all_tournaments()
         print("Choisissez le tournoi à lancer ou reprendre :")
         for index, tournament in enumerate(all_tournaments):
+            actual_round = tournament.actual_round if tournament.actual_round > 0 else "Tournoi terminé"
             print(
-                f"{index + 1} - {tournament.name} | {tournament.location} | {tournament.start_date} | {tournament.end_date} | Round à jouer : {tournament.actual_round}"
+                f"{index + 1} - {tournament.name} | {tournament.location} | {tournament.start_date} | {tournament.end_date} | Round actuel : {actual_round}"
             )
         choice = input("Entrez le numéro du tournoi : ")
         if choice.isdigit() and 1 <= int(choice) <= len(all_tournaments):
