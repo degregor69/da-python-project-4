@@ -25,5 +25,6 @@ class TournamentsManager:
             if not tournament_data:
                 return None
 
-    def get_all_players(self):
-        return self.players_manager.get_all_players()
+    def update_tournament(self, tournament: Tournament):
+        self.db.update(tournament.to_dict())
+        print("Tournoi mis à jour avec succès.")
