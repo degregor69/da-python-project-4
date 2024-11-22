@@ -82,7 +82,7 @@ class StartTournamentViews:
         print("Choisissez le tournoi à lancer ou reprendre :")
         for index, tournament in enumerate(all_tournaments):
             print(
-                f"{index + 1} - {tournament.name} | {tournament.location} | {tournament.start_date} | {tournament.end_date}"
+                f"{index + 1} - {tournament.name} | {tournament.location} | {tournament.start_date} | {tournament.end_date} | Round à jouer : {tournament.actual_round}"
             )
         choice = input("Entrez le numéro du tournoi : ")
         if choice.isdigit() and 1 <= int(choice) <= len(all_tournaments):
@@ -102,17 +102,17 @@ class StartTournamentViews:
     def display_tournament_players(players: list[Player]):
         players_names = [f"{player.first_name} {player.last_name}" for player in players]
         players_str = ", ".join(players_names)
-        print(f"Les joueurs participants à ce tournoi : {players_str}.")
+        print(f"\nLes joueurs participants à ce tournoi : {players_str}.")
 
     @staticmethod
     def display_sorted_players(sorted_players: list[Player]):
         players_names = [f"{player.first_name} {player.last_name}" for player in sorted_players]
         players_str = ", ".join(players_names)
-        print(f"Les joueurs ont été triés aléatoirement dans cet ordre : {players_str}.")
+        print(f"\nLes joueurs ont été triés aléatoirement dans cet ordre : {players_str}.")
 
     @staticmethod
     def display_created_round(round: Round):
-        print(f"Le round a été créé.")
+        print(f"\nLe round a été créé.")
         print(f"Les matchs qui le composent sont : ")
         for match in round.matches:
             print(f"{match.player_1.national_id} | {match.player_1.first_name} {match.player_1.last_name} VS {match.player_2.national_id} | {match.player_2.first_name} {match.player_2.last_name}")
@@ -120,5 +120,5 @@ class StartTournamentViews:
 
     @staticmethod
     def display_finished_tournament(tournament):
-        print(f"Le tournoi {tournament.name} est terminé.")
+        print(f"\nLe tournoi {tournament.name} est terminé.")
         print("Tous ses rounds ont été effectués.")

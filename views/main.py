@@ -9,13 +9,13 @@ class MainControllerViews:
         print("4. Afficher les rapports")
         print("5. Quitter")
 
-        choice = input("Choisissez une option : ")
+        choice = input("\nChoisissez une option : ")
         return choice
 
     @staticmethod
     def goodbye():
-        print("Au revoir !")
+        print("\nAu revoir !")
 
     @staticmethod
     def error():
-        print("Option invalide. Veuillez réessayer.")
+        print("\nOption invalide. Veuillez réessayer.")

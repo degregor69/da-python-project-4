@@ -15,13 +15,13 @@ class MatchesManager:
         if len(self.db) > 0:
             last_match = self.db.all()[-1]  # Récupère le dernier match enregistré
             return last_match["id"] + 1  # Incrémente de 1 l'ID du dernier match
-        return 1  # Si la base est vide, commence à 1
+        return 1
 
     def add_match(self, match: Match):
         if match.id is None:
             match.id = self._id_counter  # Attribue l'ID unique du compteur
             self._id_counter += 1  # Incrémente le compteur pour le prochain match
-        self.db.insert(match.to_dict())  # Sauvegarde le match dans la base de données
+        self.db.insert(match.to_dict())
 
     def get_match(self, match_id):
         match_data = self.db.get(Query().id == match_id)
