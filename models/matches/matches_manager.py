@@ -1,4 +1,5 @@
 from tinydb import TinyDB, Query
+
 from models.matches.matches import Match
 from models.players.players_manager import PlayersManager
 
@@ -6,17 +7,27 @@ from models.players.players_manager import PlayersManager
 class MatchesManager:
     def __init__(self, db_path="data/matches.json"):
         self.db = TinyDB(db_path).table("matches")
+        self._id_counter = self._get_next_id()  # On charge l'ID suivant pour les nouveaux matchs
         self.players_manager = PlayersManager()
 
-    def add_match(self, match: Match):
-        self.db.insert(match.to_dict())
+    def _get_next_id(self):
 
-    def get_match(self, match_id: int) -> Match:
-        MatchQuery = Query()
-        match_data = self.db.get(MatchQuery.id == match_id)
+        if len(self.db) > 0:
+            last_match = self.db.all()[-1]  # Récupère le dernier match enregistré
+            return last_match["id"] + 1  # Incrémente de 1 l'ID du dernier match
+        return 1  # Si la base est vide, commence à 1
+
+    def add_match(self, match: Match):
+        if match.id is None:
+            match.id = self._id_counter  # Attribue l'ID unique du compteur
+            self._id_counter += 1  # Incrémente le compteur pour le prochain match
+        self.db.insert(match.to_dict())  # Sauvegarde le match dans la base de données
+
+    def get_match(self, match_id):
+        match_data = self.db.get(Query().id == match_id)
         if match_data:
             return Match.from_dict(match_data, self.players_manager)
-        raise ValueError(f"Match avec l'ID {match_id} introuvable.")
+        return None
 
     def update_match(self, match: Match):
         MatchQuery = Query()

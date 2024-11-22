@@ -38,7 +38,7 @@ class Tournament:
             "end_date": str(self.end_date),
             "description": self.description,
             "players_ids": [player.national_id for player in self.players],
-            "rounds_ids": [round.id for round in self.rounds],
+            "rounds_ids": [game_round.id for game_round in self.rounds],
             "actual_round": self.actual_round,
             "nb_rounds": self.nb_rounds,
         }

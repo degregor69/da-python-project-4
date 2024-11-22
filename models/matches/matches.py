@@ -3,17 +3,15 @@ from models.players.players_manager import PlayersManager
 
 
 class Match:
-    _id_counter = 1  # Variable de classe pour suivre le prochain ID
-
     def __init__(
         self,
         player_1: Player,
         player_2: Player,
+        id: int = None,  # ID optionnel
         score_player_1: float = 0.0,
         score_player_2: float = 0.0,
     ):
-        self.id = Match._id_counter  # Attribuer l'ID unique
-        Match._id_counter += 1  # Incrémenter le compteur pour le prochain match
+        self.id = id  # ID est passé en paramètre, mais pas encore défini si None
         self.player_1 = player_1
         self.player_2 = player_2
         self.score_player_1 = score_player_1
@@ -33,6 +31,7 @@ class Match:
         player_1 = players_manager.get_player(data["player_1"])
         player_2 = players_manager.get_player(data["player_2"])
         return cls(
+            id=data["id"],  # L'ID est récupéré depuis les données de la base
             player_1=player_1,
             player_2=player_2,
             score_player_1=data["score_player_1"],
