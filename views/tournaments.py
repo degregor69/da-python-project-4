@@ -116,3 +116,9 @@ class StartTournamentViews:
         print(f"Les matchs qui le composent sont : ")
         for match in round.matches:
             print(f"{match.player_1.national_id} | {match.player_1.first_name} {match.player_1.last_name} VS {match.player_2.national_id} | {match.player_2.first_name} {match.player_2.last_name}")
+
+
+    @staticmethod
+    def display_finished_tournament(tournament):
+        print(f"Le tournoi {tournament.name} est terminé.")
+        print("Tous ses rounds ont été effectués.")
