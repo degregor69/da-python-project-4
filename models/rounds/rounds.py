@@ -7,9 +7,9 @@ class Round:
     def __init__(
         self,
         name: str,
-        start_datetime: datetime.datetime,
         end_datetime: datetime.datetime,
         matches: List[int],  # Liste d'IDs (int) des matchs
+        start_datetime: datetime.datetime = datetime.datetime.now(),
     ):
         self.id = Round._id_counter  # Attribuer un ID unique au round
         Round._id_counter += 1  # Incrémenter le compteur pour le prochain round
