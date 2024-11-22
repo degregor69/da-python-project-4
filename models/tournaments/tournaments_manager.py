@@ -1,6 +1,7 @@
 from tinydb import TinyDB, Query
 from .tournaments import Tournament
 from ..players.players_manager import PlayersManager
+from ..rounds.rounds_manager import RoundsManager
 
 
 class TournamentsManager:
@@ -8,6 +9,7 @@ class TournamentsManager:
         self.db = TinyDB(db_path).table("tournaments")
         self.db_players = TinyDB(db_path).table("players")
         self.players_manager = PlayersManager()
+        self.rounds_manager = RoundsManager()
 
     def add_tournament(self, tournament: Tournament):
         tournament_as_dict = tournament.to_dict()
@@ -16,14 +18,8 @@ class TournamentsManager:
 
     def get_all_tournaments(self):
         tournaments_data = self.db.all()
-        return [Tournament.from_dict(tournaments_data, self.players_manager)for tournaments_data in tournaments_data]
+        return [Tournament.from_dict(tournaments_data, self.players_manager, self.rounds_manager)for tournaments_data in tournaments_data]
 
-    def get_tournament(self, tournament_id: int = None):
-        if tournament_id:
-            TournamentQuery = Query()
-            tournament_data = self.db.get(TournamentQuery.id == tournament_id)
-            if not tournament_data:
-                return None
 
     def update_tournament(self, tournament: Tournament):
         self.db.update(tournament.to_dict())

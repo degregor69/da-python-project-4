@@ -26,21 +26,37 @@ class StartTournamentController:
         StartTournamentViews.display_tournament_actual_round(
             tournament.actual_round)
 
-        # while tournament.actual_round < tournament.nb_rounds - 1:
+        # while tournament.actual_round < tournament.nb_rounds:
         
         # Generate rounds
-        if tournament.actual_round == 0:
+        if tournament.actual_round == 1:
             round = self.generate_first_round(tournament=tournament)
         else:
-            round = self.generate_other_rounds(tournament=tournament)
-            return
-        
+            round = self.generate_generic_round(tournament=tournament)
+
         # Update score of the round
         self.set_match_score_controller.run(round)
 
         # Update the round of the tournament
         tournament.actual_round += 1
+        tournament.rounds.append(round)
         self.tournaments_manager.update_tournament(tournament)
+
+    def generate_generic_round(self, tournament: Tournament):
+        players_ids_by_points_desc = tournament.get_players_points()
+        sorted_players = []
+        for player_data in players_ids_by_points_desc:
+            player = self.players_manager.get_player(player_data[0])
+            sorted_players.append(player)
+
+        # Generate matches
+        round_matches = self.generate_matches(sorted_players)
+        # Create and save round
+        round = self.create_and_save_round(
+            round_matches, tournament.actual_round)
+
+        StartTournamentViews.display_created_round(round)
+        return round
 
 
     def generate_first_round(self, tournament: Tournament):
@@ -61,8 +77,6 @@ class StartTournamentController:
         StartTournamentViews.display_created_round(round)
         return round
 
-    def generate_classic_round(self, tournament: Tournament):
-        # Sort players by points in the tournament
 
 
     def generate_matches(self, sorted_players: list[Player]):

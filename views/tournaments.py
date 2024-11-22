@@ -94,9 +94,9 @@ class StartTournamentViews:
     @staticmethod
     def display_tournament_actual_round(actual_round: int):
         if actual_round == 0:
-            print(f"Début du tournoi, round {actual_round + 1}")
+            print(f"Début du tournoi, round {actual_round}")
         else:
-            print(f"Reprise du tournoi, round {actual_round + 1}")
+            print(f"Reprise du tournoi, round {actual_round}")
 
     @staticmethod
     def display_tournament_players(players: list[Player]):
@@ -112,7 +112,7 @@ class StartTournamentViews:
 
     @staticmethod
     def display_created_round(round: Round):
-        print(f"Le round {round.name} a été créé.")
+        print(f"Le round a été créé.")
         print(f"Les matchs qui le composent sont : ")
         for match in round.matches:
             print(f"{match.player_1.national_id} | {match.player_1.first_name} {match.player_1.last_name} VS {match.player_2.national_id} | {match.player_2.first_name} {match.player_2.last_name}")
