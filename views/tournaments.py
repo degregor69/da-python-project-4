@@ -1,6 +1,8 @@
 import datetime
 import utils
+from models.players.players import Player
 from models.players.players_manager import PlayersManager
+from models.rounds.rounds import Round
 from models.tournaments.tournaments_manager import TournamentsManager
 
 
@@ -88,3 +90,29 @@ class StartTournamentViews:
         else:
             print("Choix invalide.")
             return None
+
+    @staticmethod
+    def display_tournament_actual_round(actual_round: int):
+        if actual_round == 0:
+            print(f"Début du tournoi, round {actual_round + 1}")
+        else:
+            print(f"Reprise du tournoi, round {actual_round + 1}")
+
+    @staticmethod
+    def display_tournament_players(players: list[Player]):
+        players_names = [f"{player.first_name} {player.last_name}" for player in players]
+        players_str = ", ".join(players_names)
+        print(f"Les joueurs participants à ce tournoi : {players_str}.")
+
+    @staticmethod
+    def display_sorted_players(sorted_players: list[Player]):
+        players_names = [f"{player.first_name} {player.last_name}" for player in sorted_players]
+        players_str = ", ".join(players_names)
+        print(f"Les joueurs ont été triés aléatoirement dans cet ordre : {players_str}.")
+
+    @staticmethod
+    def display_created_round(round: Round):
+        print(f"Le round {round.name} a été créé.")
+        print(f"Les matchs qui le composent sont : ")
+        for match in round.matches:
+            print(f"{match.player_1.national_id} | {match.player_1.first_name} {match.player_1.last_name} VS {match.player_2.national_id} | {match.player_2.first_name} {match.player_2.last_name}")
