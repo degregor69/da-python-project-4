@@ -1,9 +1,8 @@
 import datetime
 import utils
 from models.players.players import Player
-from models.players.players_manager import PlayersManager
 from models.rounds.rounds import Round
-from models.tournaments.tournaments_manager import TournamentsManager
+from models.tournaments.tournaments import Tournament
 
 
 class CreateTournamentViews:
@@ -29,12 +28,10 @@ class CreateTournamentViews:
         }
 
     @staticmethod
-    def ask_for_players(
-        tournament_manager: TournamentsManager, players_manager: PlayersManager
+    def ask_for_players(players: list[Player]
     ):
         registered_players = []
         print("Liste des joueurs enregistrés :")
-        players = players_manager.get_all_players()
         players_ids = [player.national_id for player in players]
 
         for player in players:
@@ -77,8 +74,7 @@ class CreateTournamentViews:
 
 class StartTournamentViews:
     @staticmethod
-    def select_tournament(tournament_manager: TournamentsManager):
-        all_tournaments = tournament_manager.get_all_tournaments()
+    def select_tournament(all_tournaments: list[Tournament]):
         print("Choisissez le tournoi à lancer ou reprendre :")
         for index, tournament in enumerate(all_tournaments):
             actual_round = tournament.actual_round if tournament.actual_round > 0 else "Tournoi terminé"
@@ -94,7 +90,7 @@ class StartTournamentViews:
 
     @staticmethod
     def display_tournament_actual_round(actual_round: int):
-        if actual_round == 0:
+        if actual_round == 1:
             print(f"Début du tournoi, round {actual_round}")
         else:
             print(f"Reprise du tournoi, round {actual_round}")

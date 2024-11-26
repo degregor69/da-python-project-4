@@ -21,8 +21,8 @@ class StartTournamentController:
 
     def run(self):
         # Choose the tournamnent we want to start
-        tournament = StartTournamentViews.select_tournament(
-            self.tournaments_manager)
+        all_tournaments = self.tournaments_manager.get_all_tournaments()
+        tournament = StartTournamentViews.select_tournament(all_tournaments)
         StartTournamentViews.display_tournament_actual_round(
             tournament.actual_round)
         
