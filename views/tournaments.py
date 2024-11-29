@@ -1,5 +1,8 @@
 import datetime
+import random
+
 import utils
+from models.matches.matches import Match
 from models.players.players import Player
 from models.rounds.rounds import Round
 from models.tournaments.tournaments import Tournament
@@ -42,7 +45,11 @@ class CreateTournamentViews:
                 'Pour sélectionner un joueur, entrez son ID national, sinon entrez "STOP" : '
             )
             if selection == "STOP":
-                break
+                if len(registered_players) % 2 != 0:
+                    print("Il y a un nombre impairs de joueurs inscrits, veuillez en rajouter un autre.")
+                    continue
+                else:
+                    break
 
             player = utils.check_if_player_already_registered(
                 registered_players, players_ids, selection
@@ -70,6 +77,7 @@ class CreateTournamentViews:
         if nb_rounds_input == "":
             return 4
         return int(nb_rounds_input)
+
 
 
 class StartTournamentViews:
@@ -112,10 +120,12 @@ class StartTournamentViews:
         print(f"\nLe round a été créé.")
         print(f"Les matchs qui le composent sont : ")
         for match in round.matches:
-            print(f"{match.player_1.national_id} | {match.player_1.first_name} {match.player_1.last_name} VS {match.player_2.national_id} | {match.player_2.first_name} {match.player_2.last_name}")
-
+            player_1_color = random.choice(["Blanc", "Noir"])
+            player_2_color = "Noir" if player_1_color == "Blanc" else "Blanc"
+            print(f"{match.player_1.national_id} | {match.player_1.first_name} {match.player_1.last_name} | {player_1_color} VS {match.player_2.national_id} | {match.player_2.first_name} {match.player_2.last_name} | {player_2_color}")
 
     @staticmethod
-    def display_finished_tournament(tournament):
+    def display_finished_tournament(tournament: Tournament):
         print(f"\nLe tournoi {tournament.name} est terminé.")
         print("Tous ses rounds ont été effectués.")
+
