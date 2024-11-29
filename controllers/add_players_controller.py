@@ -37,8 +37,8 @@ class AddPlayerController:
 
     @staticmethod
     def _validate_national_id(national_id):
-        # Exemple : ID sous forme de deux lettres suivies de 6 chiffres
-        if re.match(r"^[A-Z]{2}\d{6}$", national_id):
+        # Id must be two letters followed by 5 digits
+        if re.match(r"^[A-Z]{2}\d{5}$", national_id):
             return True
         else:
             return False
