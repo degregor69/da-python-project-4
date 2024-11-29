@@ -9,12 +9,12 @@ class Round:
     def __init__(
         self,
         name: str,
-        matches: List[Match],  # Liste d'objets Match
+        matches: List[Match],
         start_datetime: datetime.datetime = datetime.datetime.now(),
-        id: Optional[int] = None,  # ID est optionnel à l'initialisation
+        id: Optional[int] = None,
         end_datetime: Optional[datetime.datetime] = None
     ):
-        self.id = id  # ID est passé en paramètre
+        self.id = id
         self.name = name
         self.start_datetime = start_datetime
         self.end_datetime = end_datetime
@@ -26,7 +26,7 @@ class Round:
             "name": self.name,
             "start_datetime": self.start_datetime.isoformat(),
             "end_datetime": self.end_datetime.isoformat() if self.end_datetime else None,
-            "matches": [match.id for match in self.matches],  # On sauvegarde les IDs des matchs
+            "matches": [match.id for match in self.matches],
         }
 
     @classmethod

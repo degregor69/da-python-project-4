@@ -10,14 +10,12 @@ class RoundsManager:
         self.matches_manager = MatchesManager()
 
     def _get_next_id(self):
-        """Charge l'ID suivant en examinant la base de données"""
         if len(self.db) > 0:
-            last_round = self.db.all()[-1]  # Récupère le dernier round enregistré
-            return last_round["id"] + 1  # Incrémente de 1 l'ID du dernier round
-        return 1  # Si la base est vide, commence à 1
+            last_round = self.db.all()[-1]  # Get last registered
+            return last_round["id"] + 1  # Add 1 to its id
+        return 1 # if db empty return 1 because first one to be saved
 
     def add_round(self, round: Round):
-        """Ajoute un round à la base de données avec un ID unique"""
         if round.id is None:
             round.id = self._id_counter  # Attribue l'ID unique du compteur
             self._id_counter += 1  # Incrémente le compteur pour le prochain round
