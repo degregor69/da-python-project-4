@@ -7,13 +7,11 @@ class Player:
         first_name: str,
         birth_date: datetime.date,
         national_id: str,
-        points: float = 0.0,
     ):
         self.last_name = last_name
         self.first_name = first_name
         self.birth_date = birth_date
         self.national_id = national_id
-        self.points = points
 
     @property
     def full_name(self):
@@ -25,7 +23,6 @@ class Player:
             "last_name": self.last_name,
             "birth_date": self.birth_date,
             "national_id": self.national_id,
-            "points": self.points,
         }
 
     @classmethod
@@ -35,5 +32,4 @@ class Player:
             first_name=data["first_name"],
             birth_date=datetime.datetime.strptime(data["birth_date"], "%d/%m/%Y").date(),
             national_id=data["national_id"],
-            points=data.get("points", 0.0),
         )
