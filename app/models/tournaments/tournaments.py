@@ -1,10 +1,10 @@
 from typing import List, Optional
 import datetime
 
-from models.players.players import Player
-from models.players.players_manager import PlayersManager
-from models.rounds.rounds import Round
-from models.rounds.rounds_manager import RoundsManager
+from app.models.players.players import Player
+from app.models.players.players_manager import PlayersManager
+from app.models.rounds.rounds import Round
+from app.models.rounds.rounds_manager import RoundsManager
 
 
 class Tournament:
@@ -32,8 +32,6 @@ class Tournament:
         self.actual_round = actual_round
         self.nb_rounds = nb_rounds
 
-
-
     def to_dict(self):
         return {
             "id": self.id,
@@ -49,15 +47,20 @@ class Tournament:
         }
 
     @classmethod
-    def from_dict(cls, data: dict, players_manager: PlayersManager = None, rounds_manager: RoundsManager = None):
-        players = [players_manager.get_player(player_id) for player_id in data["players_ids"]]
-        rounds = [rounds_manager.get_round(round_id) for round_id in data["rounds_ids"]]
+    def from_dict(cls, data: dict, players_manager: PlayersManager = None,
+                  rounds_manager: RoundsManager = None):
+        players = [players_manager.get_player(
+            player_id) for player_id in data["players_ids"]]
+        rounds = [rounds_manager.get_round(round_id)
+                  for round_id in data["rounds_ids"]]
         return cls(
             id=data["id"],
             name=data["name"],
             location=data["location"],
-            start_date=datetime.datetime.strptime(data["start_date"], "%Y-%m-%d").date(),
-            end_date=datetime.datetime.strptime(data["end_date"], "%Y-%m-%d").date(),
+            start_date=datetime.datetime.strptime(
+                data["start_date"], "%Y-%m-%d").date(),
+            end_date=datetime.datetime.strptime(
+                data["end_date"], "%Y-%m-%d").date(),
             description=data["description"],
             players=players,
             rounds=rounds,
@@ -83,5 +86,7 @@ class Tournament:
                     players_points[match.player_2.national_id] = 0
                 players_points[match.player_2.national_id] += score_player_2
 
-        # Convertir le dictionnaire en une liste de tuples et trier par score (valeur) en ordre décroissant
-        return sorted(players_points.items(), key=lambda item: item[1], reverse=True)
+        # Convertir le dictionnaire en une liste de tuples et trier par score
+        # (valeur) en ordre décroissant
+        return sorted(players_points.items(),
+                      key=lambda item: item[1], reverse=True)

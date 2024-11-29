@@ -1,5 +1,6 @@
 import datetime
 
+
 class Player:
     def __init__(
         self,
@@ -30,6 +31,7 @@ class Player:
         return cls(
             last_name=data["last_name"],
             first_name=data["first_name"],
-            birth_date=datetime.datetime.strptime(data["birth_date"], "%d/%m/%Y").date(),
+            birth_date=datetime.datetime.strptime(
+                data["birth_date"], "%d/%m/%Y").date(),
             national_id=data["national_id"],
         )

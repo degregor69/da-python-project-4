@@ -1,8 +1,8 @@
 import datetime
 import re
-from views.players import AddPlayerViews
-from models.players.players import Player
-from models.players.players_manager import PlayersManager
+from app.views.players import AddPlayerViews
+from app.models.players.players import Player
+from app.models.players.players_manager import PlayersManager
 
 
 class AddPlayerController:

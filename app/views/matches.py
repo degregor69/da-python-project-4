@@ -1,4 +1,4 @@
-from models.matches.matches import Match
+from app.models.matches.matches import Match
 
 
 class MatchesViews:
@@ -13,7 +13,8 @@ class MatchesViews:
 
         while True:
             try:
-                choice = int(input("\nEntrez le numéro de l'issue du match (1, 2 ou 3) : "))
+                choice = int(
+                    input("\nEntrez le numéro de l'issue du match (1, 2 ou 3) : "))
                 if choice in [1, 2, 3]:
                     return choice
                 else:

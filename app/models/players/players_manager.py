@@ -1,5 +1,5 @@
 from tinydb import TinyDB, Query
-from models.players.players import Player
+from app.models.players.players import Player
 
 
 class PlayersManager:
@@ -26,4 +26,6 @@ class PlayersManager:
 
     def update_player(self, player):
         PlayerQuery = Query()
-        self.db.update(player.to_dict(), PlayerQuery.national_id == player.national_id)
+        self.db.update(
+            player.to_dict(),
+            PlayerQuery.national_id == player.national_id)

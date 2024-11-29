@@ -1,11 +1,10 @@
 import datetime
 import random
 
-import utils
-from models.matches.matches import Match
-from models.players.players import Player
-from models.rounds.rounds import Round
-from models.tournaments.tournaments import Tournament
+from app import utils
+from app.models.players.players import Player
+from app.models.rounds.rounds import Round
+from app.models.tournaments.tournaments import Tournament
 
 
 class CreateTournamentViews:
@@ -14,8 +13,10 @@ class CreateTournamentViews:
         print("Création d'un tournoi")
         name = input("Nom du tournoi : ")
         location = input("Lieu du tournoi : ")
-        start_date = CreateTournamentViews.get_date("Date de début (JJ/MM/AAAA) : ")
-        end_date = CreateTournamentViews.get_date("Date de fin (JJ/MM/AAAA) : ")
+        start_date = CreateTournamentViews.get_date(
+            "Date de début (JJ/MM/AAAA) : ")
+        end_date = CreateTournamentViews.get_date(
+            "Date de fin (JJ/MM/AAAA) : ")
         nb_rounds = CreateTournamentViews.get_nb_rounds(
             "Nombre de rounds (par défaut 4) :  "
         )
@@ -32,7 +33,7 @@ class CreateTournamentViews:
 
     @staticmethod
     def ask_for_players(players: list[Player]
-    ):
+                        ):
         registered_players = []
         print("Liste des joueurs enregistrés :")
         players_ids = [player.national_id for player in players]
@@ -46,7 +47,8 @@ class CreateTournamentViews:
             )
             if selection == "STOP":
                 if len(registered_players) % 2 != 0:
-                    print("Il y a un nombre impairs de joueurs inscrits, veuillez en rajouter un autre.")
+                    print(
+                        "Il y a un nombre impairs de joueurs inscrits, veuillez en rajouter un autre.")
                     continue
                 else:
                     break
@@ -79,7 +81,6 @@ class CreateTournamentViews:
         return int(nb_rounds_input)
 
 
-
 class StartTournamentViews:
     @staticmethod
     def select_tournament(all_tournaments: list[Tournament]):
@@ -105,15 +106,18 @@ class StartTournamentViews:
 
     @staticmethod
     def display_tournament_players(players: list[Player]):
-        players_names = [f"{player.first_name} {player.last_name}" for player in players]
+        players_names = [
+            f"{player.first_name} {player.last_name}" for player in players]
         players_str = ", ".join(players_names)
         print(f"\nLes joueurs participants à ce tournoi : {players_str}.")
 
     @staticmethod
     def display_sorted_players(sorted_players: list[Player]):
-        players_names = [f"{player.first_name} {player.last_name}" for player in sorted_players]
+        players_names = [
+            f"{player.first_name} {player.last_name}" for player in sorted_players]
         players_str = ", ".join(players_names)
-        print(f"\nLes joueurs ont été triés aléatoirement dans cet ordre : {players_str}.")
+        print(
+            f"\nLes joueurs ont été triés aléatoirement dans cet ordre : {players_str}.")
 
     @staticmethod
     def display_created_round(round: Round):
@@ -128,4 +132,3 @@ class StartTournamentViews:
     def display_finished_tournament(tournament: Tournament):
         print(f"\nLe tournoi {tournament.name} est terminé.")
         print("Tous ses rounds ont été effectués.")
-

@@ -1,8 +1,8 @@
 import datetime
 from typing import List, Optional
 
-from models.matches.matches import Match
-from models.matches.matches_manager import MatchesManager
+from app.models.matches.matches import Match
+from app.models.matches.matches_manager import MatchesManager
 
 
 class Round:
@@ -32,11 +32,14 @@ class Round:
     @classmethod
     def from_dict(cls, data: dict, matches_manager: MatchesManager):
         # On récupère les objets Match via le MatchesManager
-        matches = [matches_manager.get_match(match_id) for match_id in data["matches"]]
+        matches = [matches_manager.get_match(
+            match_id) for match_id in data["matches"]]
         return cls(
             id=data["id"],
             name=data["name"],
-            start_datetime=datetime.datetime.fromisoformat(data["start_datetime"]),
-            end_datetime=datetime.datetime.fromisoformat(data["end_datetime"]) if data["end_datetime"] else None,
+            start_datetime=datetime.datetime.fromisoformat(
+                data["start_datetime"]),
+            end_datetime=datetime.datetime.fromisoformat(
+                data["end_datetime"]) if data["end_datetime"] else None,
             matches=matches,  # Associe les objets Match
         )

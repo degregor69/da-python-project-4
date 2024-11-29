@@ -1,13 +1,13 @@
-from controllers.set_match_score_controller import SetMatchScoreController
-from models.matches.matches import Match
-from models.matches.matches_manager import MatchesManager
-from models.players.players import Player
-from models.players.players_manager import PlayersManager
-from models.rounds.rounds import Round
-from models.rounds.rounds_manager import RoundsManager
-from models.tournaments.tournaments import Tournament
-from models.tournaments.tournaments_manager import TournamentsManager
-from views.tournaments import StartTournamentViews
+from app.controllers.set_match_score_controller import SetMatchScoreController
+from app.models.matches.matches import Match
+from app.models.matches.matches_manager import MatchesManager
+from app.models.players.players import Player
+from app.models.players.players_manager import PlayersManager
+from app.models.rounds.rounds import Round
+from app.models.rounds.rounds_manager import RoundsManager
+from app.models.tournaments.tournaments import Tournament
+from app.models.tournaments.tournaments_manager import TournamentsManager
+from app.views.tournaments import StartTournamentViews
 import random
 
 
@@ -17,7 +17,8 @@ class StartTournamentController:
         self.players_manager = PlayersManager()
         self.matches_manager = MatchesManager()
         self.rounds_manager = RoundsManager()
-        self.set_match_score_controller = SetMatchScoreController(self.matches_manager)
+        self.set_match_score_controller = SetMatchScoreController(
+            self.matches_manager, self.rounds_manager)
 
     def run(self):
         # Choose the tournamnent we want to start
@@ -25,7 +26,7 @@ class StartTournamentController:
         tournament = StartTournamentViews.select_tournament(all_tournaments)
         StartTournamentViews.display_tournament_actual_round(
             tournament.actual_round)
-        
+
         if tournament.actual_round <= tournament.nb_rounds and tournament.actual_round > 0:
             if tournament.actual_round == 1:
                 round = self.generate_first_round(tournament=tournament)
@@ -62,7 +63,6 @@ class StartTournamentController:
         StartTournamentViews.display_created_round(round)
         return round
 
-
     def generate_first_round(self, tournament: Tournament):
         StartTournamentViews.display_tournament_players(tournament.players)
 
@@ -92,7 +92,8 @@ class StartTournamentController:
             self.matches_manager.add_match(new_match)
         return round_matches
 
-    def generate_matches(self, sorted_players: list[Player], tournament: Tournament = None):
+    def generate_matches(
+            self, sorted_players: list[Player], tournament: Tournament = None):
         already_played_matches = self.get_already_played_matches(tournament)
         round_matches = []
 
@@ -140,7 +141,6 @@ class StartTournamentController:
             for match in round.matches
         ]
 
-
     def create_and_save_round(
         self,
         round_matches: list[Match],
@@ -151,4 +151,3 @@ class StartTournamentController:
             matches=round_matches)
         self.rounds_manager.add_round(first_round)
         return first_round
-

@@ -1,4 +1,4 @@
-from controllers.main_controller import MainController
+from app.controllers.main_controller import MainController
 
 
 def run():
