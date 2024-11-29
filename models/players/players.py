@@ -1,6 +1,5 @@
 import datetime
 
-
 class Player:
     def __init__(
         self,
@@ -16,6 +15,10 @@ class Player:
         self.national_id = national_id
         self.points = points
 
+    @property
+    def full_name(self):
+        return f"{self.first_name} {self.last_name}"
+
     def to_dict(self):
         return {
             "first_name": self.first_name,
@@ -24,3 +27,13 @@ class Player:
             "national_id": self.national_id,
             "points": self.points,
         }
+
+    @classmethod
+    def from_dict(cls, data):
+        return cls(
+            last_name=data["last_name"],
+            first_name=data["first_name"],
+            birth_date=datetime.datetime.strptime(data["birth_date"], "%d/%m/%Y").date(),
+            national_id=data["national_id"],
+            points=data.get("points", 0.0),
+        )
