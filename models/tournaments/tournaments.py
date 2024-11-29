@@ -1,4 +1,4 @@
-from typing import List
+from typing import List, Optional
 import datetime
 
 from models.players.players import Player
@@ -19,7 +19,9 @@ class Tournament:
         rounds: List[Round] = [],
         actual_round: int = 1,
         nb_rounds: int = 4,
+        id: Optional[int] = None,
     ):
+        self.id = id
         self.name = name
         self.location = location
         self.start_date = start_date
@@ -30,8 +32,11 @@ class Tournament:
         self.actual_round = actual_round
         self.nb_rounds = nb_rounds
 
+
+
     def to_dict(self):
         return {
+            "id": self.id,
             "name": self.name,
             "location": self.location,
             "start_date": str(self.start_date),
@@ -48,6 +53,7 @@ class Tournament:
         players = [players_manager.get_player(player_id) for player_id in data["players_ids"]]
         rounds = [rounds_manager.get_round(round_id) for round_id in data["rounds_ids"]]
         return cls(
+            id=data["id"],
             name=data["name"],
             location=data["location"],
             start_date=datetime.datetime.strptime(data["start_date"], "%Y-%m-%d").date(),
