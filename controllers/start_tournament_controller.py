@@ -54,7 +54,7 @@ class StartTournamentController:
             sorted_players.append(player)
 
         # Generate matches
-        round_matches = self.generate_matches(sorted_players)
+        round_matches = self.generate_matches(sorted_players, tournament)
         # Create and save round
         round = self.create_and_save_round(
             round_matches, tournament.actual_round)
@@ -73,7 +73,7 @@ class StartTournamentController:
         StartTournamentViews.display_sorted_players(sorted_players)
 
         # Generate matches
-        round_matches = self.generate_matches(sorted_players)
+        round_matches = self.generate_matches_in_first_round(sorted_players)
         # Create and save round
         round = self.create_and_save_round(
             round_matches, tournament.actual_round)
@@ -81,9 +81,7 @@ class StartTournamentController:
         StartTournamentViews.display_created_round(round)
         return round
 
-
-
-    def generate_matches(self, sorted_players: list[Player]):
+    def generate_matches_in_first_round(self, sorted_players: list[Player]):
         round_matches = []
         while sorted_players:
             new_match = Match(
@@ -93,6 +91,55 @@ class StartTournamentController:
             round_matches.append(new_match)
             self.matches_manager.add_match(new_match)
         return round_matches
+
+    def generate_matches(self, sorted_players: list[Player], tournament: Tournament = None):
+        already_played_matches = self.get_already_played_matches(tournament)
+        round_matches = []
+
+        skipped_players = []  # To keep players without new opponents
+        while sorted_players:
+            player_1 = sorted_players.pop(0)
+            player_2 = None
+
+            # Search for an opponent for first player
+            for i, potential_opponent in enumerate(sorted_players):
+                if (player_1.national_id, potential_opponent.national_id) not in already_played_matches and \
+                        (potential_opponent.national_id, player_1.national_id) not in already_played_matches:
+                    player_2 = sorted_players.pop(i)
+                    break
+
+            if player_2:  # Found new pair
+                new_match = Match(player_1=player_1, player_2=player_2)
+                round_matches.append(new_match)
+                self.matches_manager.add_match(new_match)
+            else:  # No new player found
+                skipped_players.append(player_1)
+
+            # If only skipped players remaining
+            if not sorted_players and skipped_players:
+                sorted_players.extend(skipped_players)
+                skipped_players.clear()
+                break
+
+        # Creates matches even if the matches have been already played
+        while len(sorted_players) > 1:
+            player_1 = sorted_players.pop(0)
+            player_2 = sorted_players.pop(0)
+
+            new_match = Match(player_1=player_1, player_2=player_2)
+            round_matches.append(new_match)
+            self.matches_manager.add_match(new_match)
+
+        return round_matches
+
+    @staticmethod
+    def get_already_played_matches(tournament: Tournament):
+        return [
+            (match.player_1.national_id, match.player_2.national_id)
+            for round in tournament.rounds
+            for match in round.matches
+        ]
+
 
     def create_and_save_round(
         self,
