@@ -1,7 +1,7 @@
 from tinydb import TinyDB, Query
 
-from app.models.matches.matches_manager import MatchesManager
-from app.models.rounds.rounds import Round
+from models.matches.matches_manager import MatchesManager
+from models.rounds.rounds import Round
 
 
 class RoundsManager:

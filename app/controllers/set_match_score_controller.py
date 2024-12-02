@@ -1,7 +1,7 @@
-from app.models.matches.matches_manager import MatchesManager
-from app.models.rounds.rounds import Round
-from app.models.rounds.rounds_manager import RoundsManager
-from app.views.matches import MatchesViews
+from models.matches.matches_manager import MatchesManager
+from models.rounds.rounds import Round
+from models.rounds.rounds_manager import RoundsManager
+from views.matches import MatchesViews
 
 
 class SetMatchScoreController:

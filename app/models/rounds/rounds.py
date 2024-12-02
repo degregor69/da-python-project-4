@@ -1,8 +1,8 @@
 import datetime
 from typing import List, Optional
 
-from app.models.matches.matches import Match
-from app.models.matches.matches_manager import MatchesManager
+from models.matches.matches import Match
+from models.matches.matches_manager import MatchesManager
 
 
 class Round:

@@ -1,8 +1,8 @@
-from app.controllers.add_players_controller import AddPlayerController
-from app.controllers.create_tournaments_controller import CreateTournamentController
-from app.controllers.start_tournament_controller import StartTournamentController
-from app.controllers.display_reports_controller import DisplayReportsController
-from app.views.main import MainControllerViews
+from controllers.add_players_controller import AddPlayerController
+from controllers.create_tournaments_controller import CreateTournamentController
+from controllers.start_tournament_controller import StartTournamentController
+from controllers.display_reports_controller import DisplayReportsController
+from views.main import MainControllerViews
 
 
 class MainController:

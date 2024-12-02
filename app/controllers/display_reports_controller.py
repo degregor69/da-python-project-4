@@ -1,7 +1,7 @@
-from app.models.players.players_manager import PlayersManager
-from app.models.tournaments.tournaments_manager import TournamentsManager
-from app.views.reports import ReportsViews
-from app.views.tournaments import StartTournamentViews
+from models.players.players_manager import PlayersManager
+from models.tournaments.tournaments_manager import TournamentsManager
+from views.reports import ReportsViews
+from views.tournaments import StartTournamentViews
 
 
 class DisplayReportsController:

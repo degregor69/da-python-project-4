@@ -1,13 +1,13 @@
-from app.controllers.set_match_score_controller import SetMatchScoreController
-from app.models.matches.matches import Match
-from app.models.matches.matches_manager import MatchesManager
-from app.models.players.players import Player
-from app.models.players.players_manager import PlayersManager
-from app.models.rounds.rounds import Round
-from app.models.rounds.rounds_manager import RoundsManager
-from app.models.tournaments.tournaments import Tournament
-from app.models.tournaments.tournaments_manager import TournamentsManager
-from app.views.tournaments import StartTournamentViews
+from controllers.set_match_score_controller import SetMatchScoreController
+from models.matches.matches import Match
+from models.matches.matches_manager import MatchesManager
+from models.players.players import Player
+from models.players.players_manager import PlayersManager
+from models.rounds.rounds import Round
+from models.rounds.rounds_manager import RoundsManager
+from models.tournaments.tournaments import Tournament
+from models.tournaments.tournaments_manager import TournamentsManager
+from views.tournaments import StartTournamentViews
 import random
 
 

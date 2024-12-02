@@ -1,10 +1,10 @@
 import datetime
 import random
 
-from app import utils
-from app.models.players.players import Player
-from app.models.rounds.rounds import Round
-from app.models.tournaments.tournaments import Tournament
+from utils import *
+from models.players.players import Player
+from models.rounds.rounds import Round
+from models.tournaments.tournaments import Tournament
 
 
 class CreateTournamentViews:
@@ -121,8 +121,8 @@ class StartTournamentViews:
 
     @staticmethod
     def display_created_round(round: Round):
-        print(f"\nLe round a été créé.")
-        print(f"Les matchs qui le composent sont : ")
+        print("\nLe round a été créé.")
+        print("Les matchs qui le composent sont : ")
         for match in round.matches:
             player_1_color = random.choice(["Blanc", "Noir"])
             player_2_color = "Noir" if player_1_color == "Blanc" else "Blanc"

@@ -1,10 +1,10 @@
 from typing import List, Optional
 import datetime
 
-from app.models.players.players import Player
-from app.models.players.players_manager import PlayersManager
-from app.models.rounds.rounds import Round
-from app.models.rounds.rounds_manager import RoundsManager
+from models.players.players import Player
+from models.players.players_manager import PlayersManager
+from models.rounds.rounds import Round
+from models.rounds.rounds_manager import RoundsManager
 
 
 class Tournament:

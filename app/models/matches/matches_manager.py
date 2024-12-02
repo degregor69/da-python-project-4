@@ -1,7 +1,7 @@
 from tinydb import TinyDB, Query
 
-from app.models.matches.matches import Match
-from app.models.players.players_manager import PlayersManager
+from models.matches.matches import Match
+from models.players.players_manager import PlayersManager
 
 
 class MatchesManager:

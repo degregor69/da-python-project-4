@@ -1,5 +1,5 @@
 from tinydb import TinyDB, Query
-from app.models.players.players import Player
+from models.players.players import Player
 
 
 class PlayersManager:

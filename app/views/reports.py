@@ -1,5 +1,5 @@
-from app.models.players.players import Player
-from app.models.tournaments.tournaments import Tournament
+from models.players.players import Player
+from models.tournaments.tournaments import Tournament
 
 
 class ReportsViews:
