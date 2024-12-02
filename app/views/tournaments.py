@@ -1,11 +1,10 @@
 import datetime
 import random
 
-from utils import *
 from models.players.players import Player
 from models.rounds.rounds import Round
 from models.tournaments.tournaments import Tournament
-
+from utils import utils
 
 class CreateTournamentViews:
     @staticmethod
