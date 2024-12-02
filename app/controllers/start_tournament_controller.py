@@ -28,10 +28,17 @@ class StartTournamentController:
             tournament.actual_round)
 
         if tournament.actual_round <= tournament.nb_rounds and tournament.actual_round > 0:
-            if tournament.actual_round == 1:
-                round = self.generate_first_round(tournament=tournament)
+            # Check if a round for the actual round already exists
+            if len(tournament.rounds) >= tournament.actual_round:
+                round = tournament.rounds[tournament.actual_round - 1]
             else:
-                round = self.generate_generic_round(tournament=tournament)
+                # Generate a new one if it does not exist
+                round = (
+                    self.generate_first_round(tournament)
+                    if tournament.actual_round == 1
+                    else self.generate_generic_round(tournament)
+                )
+                tournament.rounds.append(round)
 
             # Update score of the round
             self.set_match_score_controller.run(round)
@@ -41,7 +48,6 @@ class StartTournamentController:
                 tournament.actual_round = -1
             else:
                 tournament.actual_round += 1
-            tournament.rounds.append(round)
             self.tournaments_manager.update_tournament(tournament)
 
         else:
@@ -57,7 +63,7 @@ class StartTournamentController:
         # Generate matches
         round_matches = self.generate_matches(sorted_players, tournament)
         # Create and save round
-        round = self.create_and_save_round(
+        round = self.create_and_save_round_with_tournament_update(
             round_matches, tournament.actual_round)
 
         StartTournamentViews.display_created_round(round)
@@ -75,8 +81,12 @@ class StartTournamentController:
         # Generate matches
         round_matches = self.generate_matches_in_first_round(sorted_players)
         # Create and save round
-        round = self.create_and_save_round(
+        round = self.create_and_save_round_with_tournament_update(
             round_matches, tournament.actual_round)
+
+        # Add the round to the tournament and update it
+        tournament.rounds.append(round)
+        self.tournaments_manager.update_tournament(tournament)
 
         StartTournamentViews.display_created_round(round)
         return round
@@ -141,7 +151,7 @@ class StartTournamentController:
             for match in round.matches
         ]
 
-    def create_and_save_round(
+    def create_and_save_round_with_tournament_update(
         self,
         round_matches: list[Match],
         actual_round: int,

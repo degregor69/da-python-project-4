@@ -21,3 +21,8 @@ class MatchesViews:
                     print("\nChoix invalide. Veuillez entrer 1, 2 ou 3.")
             except ValueError:
                 print("\nEntrée invalide. Veuillez entrer un nombre (1, 2 ou 3).")
+
+    @staticmethod
+    def already_finished_match(match: Match):
+        print(
+            f"Le score pour le match entre {match.player_1.national_id} et {match.player_2.national_id} est déjà défini. Passer au suivant.")
