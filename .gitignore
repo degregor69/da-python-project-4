@@ -164,3 +164,4 @@ app/data/*
 !app/data/.gitkeep
 .flake8
 flake8_report
+.gitkeep
