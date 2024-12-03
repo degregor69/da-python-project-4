@@ -18,16 +18,19 @@ class StartTournamentController:
         self.matches_manager = MatchesManager()
         self.rounds_manager = RoundsManager()
         self.set_match_score_controller = SetMatchScoreController(
-            self.matches_manager, self.rounds_manager)
+            self.matches_manager, self.rounds_manager
+        )
 
     def run(self):
         # Choose the tournamnent we want to start
         all_tournaments = self.tournaments_manager.get_all_tournaments()
         tournament = StartTournamentViews.select_tournament(all_tournaments)
-        StartTournamentViews.display_tournament_actual_round(
-            tournament.actual_round)
+        StartTournamentViews.display_tournament_actual_round(tournament.actual_round)
 
-        if tournament.actual_round <= tournament.nb_rounds and tournament.actual_round > 0:
+        if (
+            tournament.actual_round <= tournament.nb_rounds
+            and tournament.actual_round > 0
+        ):
             # Check if a round for the actual round already exists
             if len(tournament.rounds) >= tournament.actual_round:
                 round = tournament.rounds[tournament.actual_round - 1]
@@ -64,7 +67,8 @@ class StartTournamentController:
         round_matches = self.generate_matches(sorted_players, tournament)
         # Create and save round
         round = self.create_and_save_round_with_tournament_update(
-            round_matches, tournament.actual_round)
+            round_matches, tournament.actual_round
+        )
 
         StartTournamentViews.display_created_round(round)
         return round
@@ -73,16 +77,15 @@ class StartTournamentController:
         StartTournamentViews.display_tournament_players(tournament.players)
 
         # Sorting players
-        sorted_players = random.sample(
-            tournament.players, len(tournament.players)
-        )
+        sorted_players = random.sample(tournament.players, len(tournament.players))
         StartTournamentViews.display_sorted_players(sorted_players)
 
         # Generate matches
         round_matches = self.generate_matches_in_first_round(sorted_players)
         # Create and save round
         round = self.create_and_save_round_with_tournament_update(
-            round_matches, tournament.actual_round)
+            round_matches, tournament.actual_round
+        )
 
         # Add the round to the tournament and update it
         tournament.rounds.append(round)
@@ -95,15 +98,16 @@ class StartTournamentController:
         round_matches = []
         while sorted_players:
             new_match = Match(
-                player_1=sorted_players.pop(0),
-                player_2=sorted_players.pop(0))
+                player_1=sorted_players.pop(0), player_2=sorted_players.pop(0)
+            )
 
             round_matches.append(new_match)
             self.matches_manager.add_match(new_match)
         return round_matches
 
     def generate_matches(
-            self, sorted_players: list[Player], tournament: Tournament = None):
+        self, sorted_players: list[Player], tournament: Tournament = None
+    ):
         already_played_matches = self.get_already_played_matches(tournament)
         round_matches = []
 
@@ -114,8 +118,13 @@ class StartTournamentController:
 
             # Search for an opponent for first player
             for i, potential_opponent in enumerate(sorted_players):
-                if (player_1.national_id, potential_opponent.national_id) not in already_played_matches and \
-                        (potential_opponent.national_id, player_1.national_id) not in already_played_matches:
+                if (
+                    player_1.national_id,
+                    potential_opponent.national_id,
+                ) not in already_played_matches and (
+                    potential_opponent.national_id,
+                    player_1.national_id,
+                ) not in already_played_matches:
                     player_2 = sorted_players.pop(i)
                     break
 
@@ -156,8 +165,6 @@ class StartTournamentController:
         round_matches: list[Match],
         actual_round: int,
     ):
-        first_round = Round(
-            name=f"Round {actual_round}",
-            matches=round_matches)
+        first_round = Round(name=f"Round {actual_round}", matches=round_matches)
         self.rounds_manager.add_round(first_round)
         return first_round

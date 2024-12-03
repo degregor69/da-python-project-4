@@ -47,20 +47,24 @@ class Tournament:
         }
 
     @classmethod
-    def from_dict(cls, data: dict, players_manager: PlayersManager = None,
-                  rounds_manager: RoundsManager = None):
-        players = [players_manager.get_player(
-            player_id) for player_id in data["players_ids"]]
-        rounds = [rounds_manager.get_round(round_id)
-                  for round_id in data["rounds_ids"]]
+    def from_dict(
+        cls,
+        data: dict,
+        players_manager: PlayersManager = None,
+        rounds_manager: RoundsManager = None,
+    ):
+        players = [
+            players_manager.get_player(player_id) for player_id in data["players_ids"]
+        ]
+        rounds = [rounds_manager.get_round(round_id) for round_id in data["rounds_ids"]]
         return cls(
             id=data["id"],
             name=data["name"],
             location=data["location"],
             start_date=datetime.datetime.strptime(
-                data["start_date"], "%Y-%m-%d").date(),
-            end_date=datetime.datetime.strptime(
-                data["end_date"], "%Y-%m-%d").date(),
+                data["start_date"], "%Y-%m-%d"
+            ).date(),
+            end_date=datetime.datetime.strptime(data["end_date"], "%Y-%m-%d").date(),
             description=data["description"],
             players=players,
             rounds=rounds,
@@ -88,5 +92,4 @@ class Tournament:
 
         # Convertir le dictionnaire en une liste de tuples et trier par score
         # (valeur) en ordre décroissant
-        return sorted(players_points.items(),
-                      key=lambda item: item[1], reverse=True)
+        return sorted(players_points.items(), key=lambda item: item[1], reverse=True)

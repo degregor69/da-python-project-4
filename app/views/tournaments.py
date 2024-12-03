@@ -13,10 +13,8 @@ class CreateTournamentViews:
         print("Création d'un tournoi")
         name = input("Nom du tournoi : ")
         location = input("Lieu du tournoi : ")
-        start_date = CreateTournamentViews.get_date(
-            "Date de début (JJ/MM/AAAA) : ")
-        end_date = CreateTournamentViews.get_date(
-            "Date de fin (JJ/MM/AAAA) : ")
+        start_date = CreateTournamentViews.get_date("Date de début (JJ/MM/AAAA) : ")
+        end_date = CreateTournamentViews.get_date("Date de fin (JJ/MM/AAAA) : ")
         nb_rounds = CreateTournamentViews.get_nb_rounds(
             "Nombre de rounds (par défaut 4) :  "
         )
@@ -32,8 +30,7 @@ class CreateTournamentViews:
         }
 
     @staticmethod
-    def ask_for_players(players: list[Player]
-                        ):
+    def ask_for_players(players: list[Player]):
         registered_players = []
         print("Liste des joueurs enregistrés :")
         players_ids = [player.national_id for player in players]
@@ -48,7 +45,8 @@ class CreateTournamentViews:
             if selection == "STOP":
                 if len(registered_players) % 2 != 0:
                     print(
-                        "Il y a un nombre impairs de joueurs inscrits, veuillez en rajouter un autre.")
+                        "Il y a un nombre impairs de joueurs inscrits, veuillez en rajouter un autre."
+                    )
                     continue
                 else:
                     break
@@ -86,7 +84,11 @@ class StartTournamentViews:
     def select_tournament(all_tournaments: list[Tournament]):
         print("Choisissez le tournoi à lancer ou reprendre :")
         for index, tournament in enumerate(all_tournaments):
-            actual_round = tournament.actual_round if tournament.actual_round > 0 else "Tournoi terminé"
+            actual_round = (
+                tournament.actual_round
+                if tournament.actual_round > 0
+                else "Tournoi terminé"
+            )
             print(
                 f"{index + 1} - {tournament.name} | {tournament.location} | {tournament.start_date} | "
                 f"{tournament.end_date} | Round actuel : {actual_round}"
@@ -108,17 +110,20 @@ class StartTournamentViews:
     @staticmethod
     def display_tournament_players(players: list[Player]):
         players_names = [
-            f"{player.first_name} {player.last_name}" for player in players]
+            f"{player.first_name} {player.last_name}" for player in players
+        ]
         players_str = ", ".join(players_names)
         print(f"\nLes joueurs participants à ce tournoi : {players_str}.")
 
     @staticmethod
     def display_sorted_players(sorted_players: list[Player]):
         players_names = [
-            f"{player.first_name} {player.last_name}" for player in sorted_players]
+            f"{player.first_name} {player.last_name}" for player in sorted_players
+        ]
         players_str = ", ".join(players_names)
         print(
-            f"\nLes joueurs ont été triés aléatoirement dans cet ordre : {players_str}.")
+            f"\nLes joueurs ont été triés aléatoirement dans cet ordre : {players_str}."
+        )
 
     @staticmethod
     def display_created_round(round: Round):
@@ -127,10 +132,12 @@ class StartTournamentViews:
         for match in round.matches:
             player_1_color = random.choice(["Blanc", "Noir"])
             player_2_color = "Noir" if player_1_color == "Blanc" else "Blanc"
-            print(f"{match.player_1.national_id} | {match.player_1.first_name} {match.player_1.last_name} | "
-                  f"{player_1_color} VS "
-                  f"{match.player_2.national_id} | {match.player_2.first_name} {match.player_2.last_name} | "
-                  f"{player_2_color}")
+            print(
+                f"{match.player_1.national_id} | {match.player_1.first_name} {match.player_1.last_name} | "
+                f"{player_1_color} VS "
+                f"{match.player_2.national_id} | {match.player_2.first_name} {match.player_2.last_name} | "
+                f"{player_2_color}"
+            )
 
     @staticmethod
     def display_finished_tournament(tournament: Tournament):

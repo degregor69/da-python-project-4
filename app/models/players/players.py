@@ -32,6 +32,7 @@ class Player:
             last_name=data["last_name"],
             first_name=data["first_name"],
             birth_date=datetime.datetime.strptime(
-                data["birth_date"], "%d/%m/%Y").date(),
+                data["birth_date"], "%d/%m/%Y"
+            ).date(),
             national_id=data["national_id"],
         )

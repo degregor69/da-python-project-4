@@ -15,8 +15,7 @@ class DisplayReportsController:
             self.display_players_by_alphabetical_order()
         if selection == 2:  # Display all tournaments
             all_tournaments = self.tournaments_manager.get_all_tournaments()
-            tournament = StartTournamentViews.select_tournament(
-                all_tournaments)
+            tournament = StartTournamentViews.select_tournament(all_tournaments)
             ReportsViews.display_tournament_details(tournament)
 
     def display_players_by_alphabetical_order(self):

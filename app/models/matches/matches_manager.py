@@ -12,7 +12,6 @@ class MatchesManager:
         self.players_manager = PlayersManager()
 
     def _get_next_id(self):
-
         if len(self.db) > 0:
             last_match = self.db.all()[-1]
             return last_match["id"] + 1

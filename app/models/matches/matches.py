@@ -35,7 +35,7 @@ class Match:
             player_1=player_1,
             player_2=player_2,
             score_player_1=data["score_player_1"],
-            score_player_2=data["score_player_2"]
+            score_player_2=data["score_player_2"],
         )
 
     def get_match_as_tuple(self):

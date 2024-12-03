@@ -26,6 +26,4 @@ class PlayersManager:
 
     def update_player(self, player):
         PlayerQuery = Query()
-        self.db.update(
-            player.to_dict(),
-            PlayerQuery.national_id == player.national_id)
+        self.db.update(player.to_dict(), PlayerQuery.national_id == player.national_id)

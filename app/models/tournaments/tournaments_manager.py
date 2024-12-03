@@ -24,11 +24,13 @@ class TournamentsManager:
 
     def get_all_tournaments(self):
         tournaments_data = self.db.all()
-        return [Tournament.from_dict(tournaments_data, self.players_manager,
-                                     self.rounds_manager)for tournaments_data in tournaments_data]
+        return [
+            Tournament.from_dict(
+                tournaments_data, self.players_manager, self.rounds_manager
+            )
+            for tournaments_data in tournaments_data
+        ]
 
     def update_tournament(self, tournament: Tournament):
         TournamentQuery = Query()
-        self.db.update(
-            tournament.to_dict(),
-            TournamentQuery.id == tournament.id)
+        self.db.update(tournament.to_dict(), TournamentQuery.id == tournament.id)

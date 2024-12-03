@@ -15,5 +15,4 @@ class AddPlayerViews:
 
     @staticmethod
     def display_added_player_message(first_name, last_name):
-        print(
-            f"\nLe joueur {first_name} {last_name} a été ajouté avec succès !")
+        print(f"\nLe joueur {first_name} {last_name} a été ajouté avec succès !")

@@ -7,8 +7,7 @@ from views.matches import MatchesViews
 
 
 class SetMatchScoreController:
-    def __init__(self, matches_manager: MatchesManager,
-                 rounds_manager: RoundsManager):
+    def __init__(self, matches_manager: MatchesManager, rounds_manager: RoundsManager):
         self.matches_manager = matches_manager
         self.rounds_manager = rounds_manager
 

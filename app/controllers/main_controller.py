@@ -21,7 +21,7 @@ class MainController:
                 self.create_tournament_controller.run()
             elif choice == "3":
                 self.start_tournament_controller.run()
-            elif choice == '4':
+            elif choice == "4":
                 self.display_reports_controller.run()
             elif choice == "5":
                 MainControllerViews.goodbye()
