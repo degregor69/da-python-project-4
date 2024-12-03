@@ -14,9 +14,8 @@ class CreateTournamentController:
         new_tournament = Tournament(**new_tournament_as_dict)
 
         # Sélection des joueurs
-        players =  self.players_manager.get_all_players()
-        players_ids = CreateTournamentViews.ask_for_players(players
-        )
+        players = self.players_manager.get_all_players()
+        players_ids = CreateTournamentViews.ask_for_players(players)
 
         players = [self.players_manager.get_player(id) for id in players_ids]
         new_tournament.players = players

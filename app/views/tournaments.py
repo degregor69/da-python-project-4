@@ -6,6 +6,7 @@ from models.rounds.rounds import Round
 from models.tournaments.tournaments import Tournament
 from utils import utils
 
+
 class CreateTournamentViews:
     @staticmethod
     def create_tournament():
@@ -87,7 +88,8 @@ class StartTournamentViews:
         for index, tournament in enumerate(all_tournaments):
             actual_round = tournament.actual_round if tournament.actual_round > 0 else "Tournoi terminé"
             print(
-                f"{index + 1} - {tournament.name} | {tournament.location} | {tournament.start_date} | {tournament.end_date} | Round actuel : {actual_round}"
+                f"{index + 1} - {tournament.name} | {tournament.location} | {tournament.start_date} | "
+                f"{tournament.end_date} | Round actuel : {actual_round}"
             )
         choice = input("Entrez le numéro du tournoi : ")
         if choice.isdigit() and 1 <= int(choice) <= len(all_tournaments):
@@ -125,7 +127,10 @@ class StartTournamentViews:
         for match in round.matches:
             player_1_color = random.choice(["Blanc", "Noir"])
             player_2_color = "Noir" if player_1_color == "Blanc" else "Blanc"
-            print(f"{match.player_1.national_id} | {match.player_1.first_name} {match.player_1.last_name} | {player_1_color} VS {match.player_2.national_id} | {match.player_2.first_name} {match.player_2.last_name} | {player_2_color}")
+            print(f"{match.player_1.national_id} | {match.player_1.first_name} {match.player_1.last_name} | "
+                  f"{player_1_color} VS "
+                  f"{match.player_2.national_id} | {match.player_2.first_name} {match.player_2.last_name} | "
+                  f"{player_2_color}")
 
     @staticmethod
     def display_finished_tournament(tournament: Tournament):

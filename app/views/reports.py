@@ -35,8 +35,10 @@ class ReportsViews:
         for round in tournament.rounds:
             print(f"\nTour : {round.name}")
             print(
-                f"Date de début : {round.start_datetime.strftime('%d/%m/%Y à %H:%M')} | Date de fin : {round.end_datetime.strftime('%d/%m/%Y à %H:%M')}")
+                f"Date de début : {round.start_datetime.strftime('%d/%m/%Y à %H:%M')} | "
+                f"Date de fin : {round.end_datetime.strftime('%d/%m/%Y à %H:%M')}")
             print("\nMatchs du round : ")
             for match in round.matches:
                 print(
-                    f"{match.player_1.national_id} | {match.score_player_1} vs {match.player_2.national_id} | {match.score_player_2}")
+                    f"{match.player_1.national_id} | {match.score_player_1} vs "
+                    f"{match.player_2.national_id} | {match.score_player_2}")
