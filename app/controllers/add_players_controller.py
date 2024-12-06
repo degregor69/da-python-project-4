@@ -14,11 +14,11 @@ class AddPlayerController:
         new_player = Player(**new_player_dict)
 
         if not self._validate_date(new_player.birth_date):
-            print("Erreur : La date de naissance n'est pas valide.")
+            AddPlayerViews.birthdate_error()
             return
 
         if not self._validate_national_id(new_player.national_id):
-            print("Erreur : l'id national n'est pas au bon format.")
+            AddPlayerViews.national_id_error()
             return
 
         self.players_manager.add_player(new_player)
