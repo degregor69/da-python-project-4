@@ -7,7 +7,6 @@ from models.players.players_manager import PlayersManager
 class MatchesManager:
     def __init__(self, db_path="data/matches.json"):
         self.db = TinyDB(db_path).table("matches")
-        # On charge l'ID suivant pour les nouveaux matchs
         self._id_counter = self._get_next_id()
         self.players_manager = PlayersManager()
 

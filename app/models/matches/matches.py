@@ -7,11 +7,11 @@ class Match:
         self,
         player_1: Player,
         player_2: Player,
-        id: int = None,  # ID optionnel
+        id: int = None,
         score_player_1: float = 0.0,
         score_player_2: float = 0.0,
     ):
-        self.id = id  # ID est passé en paramètre, mais pas encore défini si None
+        self.id = id  # Id passed as parameter but not defined if None
         self.player_1 = player_1
         self.player_2 = player_2
         self.score_player_1 = score_player_1
@@ -31,7 +31,7 @@ class Match:
         player_1 = players_manager.get_player(data["player_1"])
         player_2 = players_manager.get_player(data["player_2"])
         return cls(
-            id=data["id"],  # L'ID est récupéré depuis les données de la base
+            id=data["id"],
             player_1=player_1,
             player_2=player_2,
             score_player_1=data["score_player_1"],

@@ -76,20 +76,16 @@ class Tournament:
         players_points = {}
         for round in self.rounds:
             for match in round.matches:
-                # Extraire les scores des joueurs
                 score_player_1 = match.score_player_1
                 score_player_2 = match.score_player_2
 
-                # Ajouter les points pour player_1
                 if match.player_1.national_id not in players_points:
                     players_points[match.player_1.national_id] = 0
                 players_points[match.player_1.national_id] += score_player_1
 
-                # Ajouter les points pour player_2
                 if match.player_2.national_id not in players_points:
                     players_points[match.player_2.national_id] = 0
                 players_points[match.player_2.national_id] += score_player_2
 
-        # Convertir le dictionnaire en une liste de tuples et trier par score
-        # (valeur) en ordre décroissant
+        # Sort by decreasing order with score as selective filter
         return sorted(players_points.items(), key=lambda item: item[1], reverse=True)

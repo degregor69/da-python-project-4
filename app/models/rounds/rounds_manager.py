@@ -18,15 +18,13 @@ class RoundsManager:
 
     def add_round(self, round: Round):
         if round.id is None:
-            round.id = self._id_counter  # Attribue l'ID unique du compteur
-            self._id_counter += 1  # Incrémente le compteur pour le prochain round
-        # Sauvegarde le round dans la base de données
+            round.id = self._id_counter
+            self._id_counter += 1
         self.db.insert(round.to_dict())
 
     def get_round(self, round_id):
         round_data = self.db.get(Query().id == round_id)
         if round_data:
-            # Récupère le round avec les matchs
             return Round.from_dict(round_data, self.matches_manager)
         return None
 
