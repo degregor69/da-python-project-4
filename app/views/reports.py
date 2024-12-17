@@ -19,7 +19,9 @@ class ReportsViews:
     @staticmethod
     def display_players(players: list[Player]):
         for player in players:
-            print(f"Nom : {player.full_name} | Date de naissance : {player.birth_date} | ID National : {player.national_id}")
+            print(f"Nom : {player.full_name} | "
+                  f"Date de naissance : {player.birth_date} | "
+                  f"ID National : {player.national_id}")
 
     @staticmethod
     def display_tournament_details(tournament: Tournament):
