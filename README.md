@@ -73,6 +73,22 @@ Chess Tournament Manager is a Python application designed to manage tournaments,
 
 ---
 
+## Generate a flake8 report
+
+1. **Navigate to the `da-python-project-4` folder:**  
+   Move to the directory containing the `app` folder.
+
+   If you're in the app folder : 
+   ```bash
+   cd ..
+   ```
+2. Run flake8 reporting tool
+   ```bash
+    flake8 app/  --format=html --htmldir=flake8_report 
+   ```
+It will rewrite the flake8_report folder if existing
+
+---
 ## Authors
 
 Created by [degregor69](https://github.com/degregor69)
